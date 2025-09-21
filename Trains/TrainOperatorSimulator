@@ -1,0 +1,54 @@
+namespace TrainSystem;
+
+public class TrainOperatorSimulator
+{
+    TrainFactory _trainFactory;
+    TrainSystem _trainSystem;
+    public void TrainOperator()
+    {
+        while (true)
+            {
+                var _trainSystem = new TrainSystem();
+                var _trainFactory = new TrainFactory(_trainSystem);
+                Console.WriteLine("Чтобы войти в систему управления поездами, нажмите ENTER.");
+                if (Console.ReadLine() == "")
+                {
+                    Console.WriteLine("Добро пожаловать! Введите сначала город отправления, затем город прибытия! Нажмите ENTER.");
+                    
+                    string inputCities = Console.ReadLine();
+                    string[] words = inputCities.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    
+                    if (words.Length == 2)
+                    {
+                        string pointA = words[0];
+                        string pointB = words[1];
+                        _trainSystem.TrainLine(pointA, pointB);
+                        
+                        Console.WriteLine("Нажмите ENTER чтобы начать продажу билетов.");
+                        if (Console.ReadLine() == "")
+                        {
+                            _trainSystem.TicketSale();
+                            
+                            Console.WriteLine("Нажмите ENTER чтобы начать формирование состава.");
+                            if (Console.ReadLine() == "")
+                            {
+                                _trainFactory.TrainForming();
+                                
+                                Console.WriteLine("Нажмите ENTER чтобы начать отправку состава.");
+                                if (Console.ReadLine() == "")
+                                {
+                                    _trainFactory.TrainSending();
+                                    Console.WriteLine("Нажмите ENTER чтобы начать заново.");
+                                    Console.ReadLine(); // Ожидание перед restart
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Нужно ввести ровно два города!");
+                    }
+                }
+            }
+    }
+}
