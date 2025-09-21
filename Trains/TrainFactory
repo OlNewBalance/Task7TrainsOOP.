@@ -1,0 +1,57 @@
+namespace TrainSystem;
+
+public class TrainFactory
+{
+    private List<Van> RowOfWagons = new List<Van>();
+    
+    private TrainSystem _system;
+
+    public TrainFactory(TrainSystem system)
+    {
+        _system = system;
+    }
+    public void TrainForming()
+    {
+        if (_system.trainLineIsReady == true && _system.countOfPassengers != 0)
+        {
+            if (_system.countOfPassengers < 30)
+            {
+                RowOfWagons.Add(new Van(30,1));
+                Console.WriteLine($"Состав из 1-го вагона вместительностью 30 человек готов!");
+            }
+
+            if (_system.countOfPassengers < 40 && _system.countOfPassengers > 39)
+            {
+                RowOfWagons.Add(new Van(40, 2));
+                Console.WriteLine($"Состав из 1-го вагона вместительностью 40 человек готов!");
+            }
+
+            if (_system.countOfPassengers < 60 && _system.countOfPassengers > 49)
+            {
+                RowOfWagons.Add(new Van(60, 3));
+                Console.WriteLine($"Состав из 1-го вагона вместительностью 60 человек готов!");
+            }
+            else if (_system.countOfPassengers > 60 && _system.countOfPassengers > 49)
+            {
+                RowOfWagons.Add(new Van(60, 3));
+                RowOfWagons.Add(new Van(40, 2));
+                Console.WriteLine($"Состав из 2-х вагонов вместительностью 60(1) и 40(2) человек готов!");
+            }
+            
+        }
+    }
+
+    public void TrainSending()
+    {
+        if (_system.trainLineIsReady == true && _system.countOfPassengers > 0 && RowOfWagons != null)
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                //var van = RowOfWagons[i];
+                Console.WriteLine($"Поезд в {_system.countOfPassengers} человек, с - {RowOfWagons.Count}-м/ми вагоном(ами) успешно -" +
+                                  $" отправлен из {_system.City1} в {_system.City2}!");
+            }
+            RowOfWagons.Clear();
+        }
+    }
+}
