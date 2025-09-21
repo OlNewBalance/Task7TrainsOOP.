@@ -2,13 +2,12 @@ namespace TrainSystem;
 
 public class Van
 {
-        public int VanCapacity;
-        public int VanID;
+        internal int Capacity { get; }
+        internal int ID { get;}
 
-        public Van(int vanCapacity, int vanID)
+        public Van(int Capacity, int ID)
         {
-                VanCapacity = vanCapacity;
-                VanID = vanID;
+                Capacity = Capacity;
+                ID = ID;
         }
 }
-
